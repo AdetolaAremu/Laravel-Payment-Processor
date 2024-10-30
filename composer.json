@@ -1,0 +1,25 @@
+{
+  "name": "adetolaaremu/binkpay-router",
+  "description": "Smart routing package",
+  "type": "blinkpay-router",
+  "require": {
+    "illuminate/support": "^10.0",
+    "illuminate/contracts": "^10.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Adetolaaremu\\BinkpayRouter\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "AdetolaAremu",
+      "email": "aremutola@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable"
+}
