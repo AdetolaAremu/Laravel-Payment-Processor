@@ -4,9 +4,21 @@ namespace AdetolaAremu\BlinkPayRouter\Processors;
 
 use AdetolaAremu\BlinkPayRouter\Contracts\ProcessorInterface;
 use AdetolaAremu\BlinkPayRouter\Helpers\Helper;
+use AdetolaAremu\BlinkPayRouter\Logger;
 
 class PayStackProcessor implements ProcessorInterface
 {
+  // protected string $apiKey;
+  // protected string $secretKey;
+  // protected string $publicKey;
+
+  // public function __construct(array $config)
+  // {
+  //   $this->apiKey = $config['api_key'];
+  //   $this->secretKey = $config['secret_key'];
+  //   $this->publicKey = $config['public_key'];
+  // }
+
   public function processPayment(array $data): array
   {
     $generateTxnString = Helper::generateTransactionStringForPaystack();
@@ -19,7 +31,7 @@ class PayStackProcessor implements ProcessorInterface
   {
     $currencies = ['NGN','USD','CAD','EURO','KSH'];
 
-    return in_array($currency, [$currencies]);
+    return in_array($currency, $currencies);
   }
 
   public function getReliabilityScore(): int

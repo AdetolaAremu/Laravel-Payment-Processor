@@ -1,6 +1,6 @@
 <?php
 
-namespace AdetolaAremu\BlinkPayRouter\src\exceptions;
+namespace AdetolaAremu\BlinkPayRouter\exceptions;
 
 use Exception;
 

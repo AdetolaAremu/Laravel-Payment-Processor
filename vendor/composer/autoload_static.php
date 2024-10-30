@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
+class ComposerStaticInit08132a8a8e038a56a1dc0e90347bbfaa
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -32,9 +32,14 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
             'PhpParser\\' => 10,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'I' => 
         array (
@@ -53,7 +58,8 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
         ),
         'A' => 
         array (
-            'Adetolaaremu\\BinkpayRouter\\' => 27,
+            'AdetolaAremu\\BlinkPayRouter\\Tests\\' => 34,
+            'AdetolaAremu\\BlinkPayRouter\\' => 28,
         ),
     );
 
@@ -82,6 +88,10 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -94,11 +104,15 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/collections',
+            0 => __DIR__ . '/..' . '/illuminate/macroable',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/macroable',
+            2 => __DIR__ . '/..' . '/illuminate/collections',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Contracts\\' => 
@@ -121,7 +135,11 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'Adetolaaremu\\BinkpayRouter\\' => 
+        'AdetolaAremu\\BlinkPayRouter\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'AdetolaAremu\\BlinkPayRouter\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -1298,9 +1316,9 @@ class ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdce78f81ed2459da301d795a86a6cc1a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit08132a8a8e038a56a1dc0e90347bbfaa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit08132a8a8e038a56a1dc0e90347bbfaa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit08132a8a8e038a56a1dc0e90347bbfaa::$classMap;
 
         }, null, ClassLoader::class);
     }

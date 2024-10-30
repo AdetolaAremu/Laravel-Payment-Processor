@@ -1,19 +1,20 @@
 <?php
 
-namespace AdetolaAremu\BlinkPayRouter\src\providers;
+namespace AdetolaAremu\BlinkPayRouter\providers;
 
+use AdetolaAremu\BlinkPayRouter\Logger;
+use AdetolaAremu\BlinkPayRouter\PaymentRouter;
+use AdetolaAremu\BlinkPayRouter\ProcessorManager;
 use AdetolaAremu\BlinkPayRouter\Processors\FlutterwaveProcessor;
 use AdetolaAremu\BlinkPayRouter\Processors\MoniepointProcessor;
 use AdetolaAremu\BlinkPayRouter\Processors\PayStackProcessor;
-use AdetolaAremu\BlinkPayRouter\src\PaymentRouter;
-use AdetolaAremu\BlinkPayRouter\src\ProcessorManager;
 use Illuminate\Support\ServiceProvider;
 
-class SmartRouterServiceProvider extends ServiceProvider
+class PaymentServiceProvider extends ServiceProvider
 {
   public function register()
   {
-    $this->mergeConfigFrom(__DIR__ . '/../config/SmartPaymentRouter.php', 'SmartPaymentRouter');
+    $this->mergeConfigFrom(__DIR__ . '../../config/SmartPaymentRouter.php', 'SmartPaymentRouter');
 
     $this->app->singleton(ProcessorManager::class, function () {
       $manager = new ProcessorManager();
@@ -32,7 +33,7 @@ class SmartRouterServiceProvider extends ServiceProvider
   {
     if ($this->app->runningInConsole()) {
       $this->publishes([
-          __DIR__ . '/../config/SmartPaymentRouter.php' => $this->app->make('path.config') . '/SmartPaymentRouter.php',
+          __DIR__ . '../../config/SmartPaymentRouter.php' => $this->app->make('path.config') . '/SmartPaymentRouter.php',
       ], 'config');
     }
   }

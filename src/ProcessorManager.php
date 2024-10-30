@@ -1,6 +1,6 @@
 <?php
 
-namespace AdetolaAremu\BlinkPayRouter\src;
+namespace AdetolaAremu\BlinkPayRouter;
 
 use AdetolaAremu\BlinkPayRouter\Contracts\ProcessorInterface;
 

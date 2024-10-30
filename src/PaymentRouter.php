@@ -1,10 +1,12 @@
 <?php
 
-namespace AdetolaAremu\BlinkPayRouter\src;
+namespace AdetolaAremu\BlinkPayRouter;
 
+// use AdetolaAremu\BlinkPayRouter\Contracts\ProcessorInterface;
 use AdetolaAremu\BlinkPayRouter\Contracts\ProcessorInterface;
-use AdetolaAremu\BlinkPayRouter\src\exceptions\RoutingException;
-use AdetolaAremu\BlinkPayRouter\src\ProcessorManager;
+use AdetolaAremu\BlinkPayRouter\exceptions\RoutingException;
+use AdetolaAremu\BlinkPayRouter\ProcessorManager;
+use AdetolaAremu\BlinkPayRouter\Logger;
 
 class PaymentRouter
 {
@@ -20,12 +22,17 @@ class PaymentRouter
       $bestProcessor = null;
       $bestScore = 85;
 
-      foreach ($this->processorManager->getAllProcessors() as $processor) {
-        if (!$processor->supportedCurrency($transaction['currency'])) {
-          continue;
-        }
+      $logger = Logger::getLogger();
+      $processors = $this->processorManager->getAllProcessors();
 
-        $score = $processor->getReliabilityScore() - $processor->getCostPerTransaction();
+      foreach ($processors as $processor) {
+        $checkCurrency = $processor->supportedCurrency($transaction['currency']);
+
+        if (!$checkCurrency) continue;
+
+        $score = $processor->getReliabilityScore();
+
+        $logger->info('Inside foreach loop', ['currency' => $checkCurrency]);
 
         if ($score > $bestScore) {
           $bestProcessor = $processor;
