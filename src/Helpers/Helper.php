@@ -36,4 +36,11 @@ class Helper
     $numbers = [90, 95, 80, 70, 75];
     return $numbers[array_rand($numbers)];
   }
+
+  public static function randomStatus()
+  {
+    $status = ['active', 'inactive'];
+    
+    return $status[array_rand($status)];
+  }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use AdetolaAremu\BlinkPayRouter\Contracts\ProcessorInterface;
+use AdetolaAremu\BlinkPayRouter\exceptions\RoutingException;
 use AdetolaAremu\BlinkPayRouter\ProcessorManager;
 use AdetolaAremu\BlinkPayRouter\PaymentRouter;
 use AdetolaAremu\BlinkPayRouter\Processors\FlutterwaveProcessor;
@@ -20,15 +21,62 @@ class PaymentRouterTest extends TestCase
 
         $router = new PaymentRouter($processorManager);
 
-        $transaction = ['amount' => 500, 'currency' => 'USD'];
+        $transaction = ['amount' => 500, 'currency' => 'NGN'];
         $processor = $router->route($transaction);
 
         $this->assertInstanceOf(ProcessorInterface::class, $processor);
     }
 
-    // check if the chosen stack is active or inactive (so some should be inactive - maybe random)
+    public function testSkipsInactiveProcessor()
+    {
+        $processorManager = new ProcessorManager();
+
+        /** @var ProcessorInterface|\PHPUnit\Framework\MockObject\MockObject $inactiveHighScoreProcessor */
+        $inactiveHighScoreProcessor = $this->createMock(ProcessorInterface::class);
+        $inactiveHighScoreProcessor->method('supportedCurrency')->willReturn(true);
+        $inactiveHighScoreProcessor->method('getPaymentGatewayStatus')->willReturn(false); // Inactive status
+        $inactiveHighScoreProcessor->method('getReliabilityScore')->willReturn(95);
+        $inactiveHighScoreProcessor->method('getCostPerTransaction')->willReturn(2.00);
+
+        /** @var ProcessorInterface|\PHPUnit\Framework\MockObject\MockObject $activeLowScoreProcessor */
+        $activeLowScoreProcessor = $this->createMock(ProcessorInterface::class);
+        $activeLowScoreProcessor->method('supportedCurrency')->willReturn(true);
+        $activeLowScoreProcessor->method('getPaymentGatewayStatus')->willReturn(true); // Active status
+        $activeLowScoreProcessor->method('getReliabilityScore')->willReturn(80);
+        $activeLowScoreProcessor->method('getCostPerTransaction')->willReturn(1.00);
+
+        $processorManager->registerProcessor('inactiveHighScore', $inactiveHighScoreProcessor);
+        $processorManager->registerProcessor('activeLowScore', $activeLowScoreProcessor);
+
+        $router = new PaymentRouter($processorManager);
+
+        $transaction = ['currency' => 'USD', 'amount' => 500];
+        $processor = $router->route($transaction);
+
+        $this->assertSame($activeLowScoreProcessor, $processor);
+    }
+
+    public function testThrowsExceptionWhenNoSuitableProcessorFound()
+    {
+        $this->expectException(RoutingException::class);
+        $this->expectExceptionMessage("No suitable processor found");
+
+        $processorManager = new ProcessorManager();
+
+        /** @var ProcessorInterface|\PHPUnit\Framework\MockObject\MockObject $unsupportedCurrencyProcessor */
+        $unsupportedCurrencyProcessor = $this->createMock(ProcessorInterface::class);
+        $unsupportedCurrencyProcessor->method('supportedCurrency')->willReturn(false); // Unsupported currency
+        $unsupportedCurrencyProcessor->method('getPaymentGatewayStatus')->willReturn(true);
+        $unsupportedCurrencyProcessor->method('getReliabilityScore')->willReturn(90);
+        $unsupportedCurrencyProcessor->method('getCostPerTransaction')->willReturn(2.00);
+
+        $processorManager->registerProcessor('unsupportedCurrency', $unsupportedCurrencyProcessor);
+
+        $router = new PaymentRouter($processorManager);
+
+        $transaction = ['currency' => 'EUR', 'amount' => 500];
+        $router->route($transaction);
+    }
 
     // check if amount is lower than lowest acceptable amount
-
-    // check if currency is part of the a chosen payment gateway options
 }

@@ -9,4 +9,6 @@ interface ProcessorInterface
   public function getReliabilityScore(): int;
   public function getCostPerTransaction(): float;
   public function getName(): string;
+  public function getPaymentGatewayStatus() : bool;
+  public function getLowestAcceptableAmount() : float;
 }

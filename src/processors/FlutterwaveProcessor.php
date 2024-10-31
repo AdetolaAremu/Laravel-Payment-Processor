@@ -38,4 +38,16 @@ class FlutterwaveProcessor implements ProcessorInterface
   {
     return 'Flutterwave';
   }
+
+  public function getPaymentGatewayStatus(): bool
+  {
+    $getStatus = Helper::randomStatus();
+
+    return $getStatus === 'active' ? true : false;
+  }
+
+  public function getLowestAcceptableAmount(): float
+  {
+    return 100.00;
+  }
 }

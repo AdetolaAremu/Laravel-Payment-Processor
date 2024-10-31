@@ -36,9 +36,7 @@ class PayStackProcessor implements ProcessorInterface
 
   public function getReliabilityScore(): int
   {
-    $reliability = Helper::randomReliablity();
-
-    return $reliability;
+    return 90;
   }
 
   public function getCostPerTransaction(): float
@@ -49,5 +47,15 @@ class PayStackProcessor implements ProcessorInterface
   public function getName(): string
   {
     return 'Paystack';
+  }
+
+  public function getPaymentGatewayStatus(): bool
+  {
+    return true;
+  }
+
+  public function getLowestAcceptableAmount(): float
+  {
+    return 100.00;
   }
 }
