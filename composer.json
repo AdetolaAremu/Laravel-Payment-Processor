@@ -1,7 +1,19 @@
 {
-  "name": "adetolaaremu/binkpay-router",
+  "name": "adetolaaremu/blinqpay-router",
   "description": "Smart routing package",
-  "type": "blinkpay-router",
+  "type": "blinqpay-router",
+  "keywords": [
+    "php",
+    "github",
+    "laravel",
+    "Open Source",
+    "payments",
+    "payment-router",
+    "blinqpay router",
+    "payment laravel",
+    "laravel 8",
+    "laravel 9"
+  ],
   "require": {
     "illuminate/support": "^10.0",
     "illuminate/contracts": "^10.0",

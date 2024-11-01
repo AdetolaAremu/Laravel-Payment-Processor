@@ -79,4 +79,26 @@ class PaymentRouterTest extends TestCase
     }
 
     // check if amount is lower than lowest acceptable amount
+    public function testLowestAcceptableAmount()
+    {
+        $this->expectException(RoutingException::class);
+        $this->expectExceptionMessage("The lowest acceptable amount is");
+
+        $processorManager = new ProcessorManager();
+
+        /** @var ProcessorInterface|\PHPUnit\Framework\MockObject\MockObject $checkLowestAcceptableAmount */
+        $checkLowestAcceptableAmount = $this->createMock(ProcessorInterface::class);
+        $checkLowestAcceptableAmount->method('getLowestAcceptableAmount')->willReturn(100.00);
+        $checkLowestAcceptableAmount->method('supportedCurrency')->willReturn(true);
+        $checkLowestAcceptableAmount->method('getPaymentGatewayStatus')->willReturn(true);
+        $checkLowestAcceptableAmount->method('getReliabilityScore')->willReturn(90);
+        $checkLowestAcceptableAmount->method('getCostPerTransaction')->willReturn(2.00);
+        $processorManager->registerProcessor('lowAmountProcessor', $checkLowestAcceptableAmount);
+
+        $router = new PaymentRouter($processorManager);
+
+        $transaction = ['currency' => 'NGN', 'amount' => 50];
+
+        $router->route($transaction);
+    }
 }
