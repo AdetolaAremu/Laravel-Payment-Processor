@@ -4,12 +4,17 @@
 
 [PHP](https://php.net) 8.x.x, [Laravel](https://laravel.com/) 10.x.x and [Composer](https://getcomposer.org/) are required.
 
+### WORTHY OF NOTE
+
+- Only three payment gateways are supported right now which are paystack, moniepoint and flutterwave.
+- Kindly refer to the **Configuration** section in this documentation to add api_key, secret and public keys to your .env for the three payment gateways.
+
 ### Installation
 
 Install the package via composer:
 
 ```bash
-composer require adetolaaremu/blinqpay-router
+composer require adetolaaremu/blinqpayrouter
 ```
 
 After installating, You can decide to publish the configuration using
@@ -48,8 +53,8 @@ return [
 ### Usage
 
 ```php
-use adetolaaremu/blinqpay-router\ProcessorManager;
-use adetolaaremu/blinqpay-router\PaymentRouter;
+use adetolaaremu\blinqpayrouter\ProcessorManager;
+use adetolaaremu/blinqpayrouter\PaymentRouter;
 
 $processorManager = new ProcessorManager();
 $router = new PaymentRouter($processorManager);

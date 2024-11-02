@@ -37,7 +37,7 @@ class PaymentRouter
 
       $reliabilityScore = $processor->getReliabilityScore();
 
-      $logger->info('Socre', ['score' => $reliabilityScore]);
+      $logger->info('Score', ['score' => $reliabilityScore]);
 
       if ($reliabilityScore > $minimumHighestScore) {
         $bestProcessor = $processor;
@@ -48,6 +48,8 @@ class PaymentRouter
     if ($bestProcessor == null) throw new RoutingException("No suitable processor found for now, reliability cannot be confirmed", null, null, 0);
 
     $lowestAmount = $bestProcessor->getLowestAcceptableAmount();
+
+    $logger->info('Score', ['lowestAmount' => $lowestAmount]);
 
     if ($lowestAmount > $transaction['amount']) throw new RoutingException("The lowest acceptable amount is ".$lowestAmount, null, null, 0);
 

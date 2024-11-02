@@ -1,7 +1,7 @@
 {
-  "name": "adetolaaremu/blinqpay-router",
+  "name": "adetolaaremu/blinqpayrouter",
   "description": "Smart routing package",
-  "type": "blinqpay-router",
+  "type": "blinqpayrouter",
   "keywords": [
     "php",
     "github",
