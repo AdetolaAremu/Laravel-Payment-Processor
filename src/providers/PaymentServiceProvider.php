@@ -33,8 +33,8 @@ class PaymentServiceProvider extends ServiceProvider
   {
     if ($this->app->runningInConsole()) {
       $this->publishes([
-          __DIR__ . '../../config/SmartPaymentRouter.php' => $this->app->make('path.config') . '/SmartPaymentRouter.php',
-      ], 'config');
+          __DIR__ . '/../config/SmartPaymentRouter.php' => $this->app->configPath('SmartPaymentRouter.php'),
+      ], 'smart-payment-router');
     }
   }
 }
