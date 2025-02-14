@@ -1,4 +1,4 @@
-# BLINQPAY ROUTER
+# PAYMENT ROUTER
 
 ### Requirements
 
